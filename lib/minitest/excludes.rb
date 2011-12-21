@@ -1,5 +1,9 @@
 require 'minitest/unit'
 
+module MiniTest::Unit::Excludes # :nodoc:
+  VERSION = '1.0.0' # :nodoc:
+end
+
 ##
 # minitest/excludes.rb extends MiniTest::Unit::TestCase to provide a
 # clean API for excluding certain tests you don't want to run under
