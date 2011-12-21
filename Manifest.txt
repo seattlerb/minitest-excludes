@@ -3,6 +3,6 @@ History.txt
 Manifest.txt
 README.txt
 Rakefile
-bin/minitest-excludes
-lib/minitest-excludes.rb
-test/test_minitest-excludes.rb
+lib/minitest/excludes.rb
+test/metametameta.rb
+test/test_minitest_excludes.rb
