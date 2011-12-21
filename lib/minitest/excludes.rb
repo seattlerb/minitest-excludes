@@ -26,9 +26,8 @@ require 'minitest/unit'
 # of conditions you want to figure out if your tests should be
 # excluded.
 #
-# TestCase.exclude causes test methods to call skip with the reason
-# you provide. If you run your tests in verbose mode, you'll see a
-# full report of the tests you've excluded.
+# TestCase.exclude removes test methods entirely so they don't run
+# setup/teardown at all.
 #
 # If you want to change where the exclude files are located, you can
 # set the EXCLUDE_DIR environment variable.

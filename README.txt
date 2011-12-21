@@ -5,19 +5,34 @@ rdoc :: http://docs.seattlerb.org/minitest-excludes
 
 == DESCRIPTION:
 
-FIX (describe your package)
+minitest/excludes.rb extends MiniTest::Unit::TestCase to provide a
+clean API for excluding certain tests you don't want to run under
+certain conditions.
 
 == FEATURES/PROBLEMS:
 
-* FIX (list of features or problems)
+* Simple API to conditionally remove tests you don't want to run.
+* Uses plain ruby so you can use conditional logic if need be.
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+    class TestXYZ < MiniTest::Unit::TestCase
+      def test_good
+        test that passes
+      end
+
+      def test_bad
+        test that fails only on jruby
+      end
+    end
+
+For jruby runs, you can add test/excludes/TestXYZ.rb with:
+
+    exclude :test_bad, "Uses ObjectSpace" if jruby?
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+* minitest
 
 == INSTALL:
 
