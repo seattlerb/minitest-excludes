@@ -47,7 +47,7 @@ class MiniTest::Unit::TestCase
     return warn "Method #{self}##{name} is not defined" unless
       method_defined? name
 
-    remove_method name
+    undef_method name
   end
 
   ##
@@ -58,7 +58,7 @@ class MiniTest::Unit::TestCase
       begin
         if name and not name.empty? then
           file = File.join EXCLUDE_DIR, "#{name.gsub(/::/, '/')}.rb"
-          instance_eval File.read file if File.exist? file
+          instance_eval File.read(file), file if File.exist? file
         end
         true
       end
