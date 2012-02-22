@@ -1,3 +1,10 @@
+=== 1.0.1 / 2012-02-22
+
+* 2 bug fixes:
+
+  * Fixed instance_eval for better error reporting. (headius)
+  * Use undef_method to wipe tests brought in via modules. (headius)
+
 === 1.0.0 / 2011-12-20
 
 * 1 major enhancement:
