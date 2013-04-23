@@ -1,3 +1,9 @@
+=== 1.0.2 / 2013-04-22
+
+* 1 bug fix:
+
+  * Fixed dependency on minitest to the 4.x family.
+
 === 1.0.1 / 2012-02-22
 
 * 2 bug fixes:
