@@ -36,7 +36,7 @@ end
 # If you want to change where the exclude files are located, you can
 # set the EXCLUDE_DIR environment variable.
 
-class MiniTest::Unit::TestCase
+class Minitest::Test
   EXCLUDE_DIR = ENV['EXCLUDE_DIR'] || "test/excludes"
 
   ##
@@ -65,11 +65,11 @@ class MiniTest::Unit::TestCase
   end
 
   class << self
-    alias :old_test_methods :test_methods # :nodoc:
+    alias :old_runnable_methods :runnable_methods # :nodoc:
 
-    def test_methods # :nodoc:
+    def runnable_methods # :nodoc:
       load_excludes
-      old_test_methods
+      old_runnable_methods
     end
   end
 end

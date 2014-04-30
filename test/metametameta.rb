@@ -2,42 +2,84 @@ require 'tempfile'
 require 'stringio'
 require 'minitest/autorun'
 
-class MetaMetaMetaTestCase < MiniTest::Unit::TestCase
-  def assert_report expected = nil
-    expected ||= <<-EOM.gsub(/^ {6}/, '')
-      Run options: --seed 42
+class Minitest::Test
+  def clean s
+    s.gsub(/^ {6}/, '')
+  end
+end
 
-      # Running tests:
+class MetaMetaMetaTestCase < Minitest::Test
+  attr_accessor :reporter, :output, :tu
 
-      .
+  def run_tu_with_fresh_reporter flags = %w[--seed 42]
+    options = Minitest.process_args flags
 
-      Finished tests in 0.00
+    @output = StringIO.new("")
 
-      1 tests, 1 assertions, 0 failures, 0 errors, 0 skips
+    self.reporter = Minitest::CompositeReporter.new
+    reporter << Minitest::SummaryReporter.new(@output, options)
+    reporter << Minitest::ProgressReporter.new(@output, options)
+
+    reporter.start
+
+    yield(reporter) if block_given?
+
+    @tus ||= [@tu]
+    @tus.each do |tu|
+      Minitest::Runnable.runnables.delete tu
+
+      tu.run reporter, options
+    end
+
+    reporter.report
+  end
+
+  def first_reporter
+    reporter.reporters.first
+  end
+
+  def assert_report expected, flags = %w[--seed 42], &block
+    header = clean <<-EOM
+      Run options: #{flags.map { |s| s =~ /\|/ ? s.inspect : s }.join " "}
+
+      # Running:
+
     EOM
 
-    output = @output.string.dup
-    output.sub!(/Finished tests in .*/, "Finished tests in 0.00")
+    run_tu_with_fresh_reporter flags, &block
+
+    output = normalize_output @output.string.dup
+
+    assert_equal header + expected, output
+  end
+
+  def normalize_output output
+    output.sub!(/Finished in .*/, "Finished in 0.00")
     output.sub!(/Loaded suite .*/, 'Loaded suite blah')
-    output.gsub!(/[\w\/]+\/test\/[^:]+:\d+/, 'FILE:LINE')
-    output.gsub!(/(?:.\/)?test\/[^:]+:\d+/, 'FILE:LINE')
-    output.gsub!(/\[[^\]]+\]/, '[FILE:LINE]')
-    assert_equal(expected, output)
+
+    output.gsub!(/ = \d+.\d\d s = /, ' = 0.00 s = ')
+    output.gsub!(/0x[A-Fa-f0-9]+/, '0xXXX')
+
+    if windows? then
+      output.gsub!(/\[(?:[A-Za-z]:)?[^\]:]+:\d+\]/, '[FILE:LINE]')
+      output.gsub!(/^(\s+)(?:[A-Za-z]:)?[^:]+:\d+:in/, '\1FILE:LINE:in')
+    else
+      output.gsub!(/\[[^\]:]+:\d+\]/, '[FILE:LINE]')
+      output.gsub!(/^(\s+)[^:]+:\d+:in/, '\1FILE:LINE:in')
+    end
+
+    output
   end
 
   def setup
     super
     srand 42
-    MiniTest::Unit::TestCase.reset
-    @tu = MiniTest::Unit.new
-    @output = StringIO.new("")
-    MiniTest::Unit.runner = nil # protect the outer runner from the inner tests
-    MiniTest::Unit.output = @output
+    Minitest::Test.reset
+    @tu = nil
   end
 
   def teardown
     super
-    MiniTest::Unit.output = $stdout
     Object.send :remove_const, :ATestCase if defined? ATestCase
   end
 end
