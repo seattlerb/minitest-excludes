@@ -2,7 +2,7 @@ require 'test/metametameta'
 require 'minitest/excludes'
 
 class TestMiniTestExcludes < MetaMetaMetaTestCase
-   def test_cls_excludes
+  def test_cls_excludes
     srand 42
     old_exclude_base = MiniTest::Unit::TestCase::EXCLUDE_DIR
 
