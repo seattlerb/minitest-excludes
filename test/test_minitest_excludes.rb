@@ -1,15 +1,15 @@
 require 'test/metametameta'
 require 'minitest/excludes'
 
-class TestMiniTestExcludes < MetaMetaMetaTestCase
+class TestMinitestExcludes < MetaMetaMetaTestCase
   def test_cls_excludes
     srand 42
-    old_exclude_base = MiniTest::Unit::TestCase::EXCLUDE_DIR
+    old_exclude_base = Minitest::Test::EXCLUDE_DIR
 
     @assertion_count = 0
 
     Dir.mktmpdir do |path|
-      MiniTest::Unit::TestCase::EXCLUDE_DIR.replace(path)
+      Minitest::Test::EXCLUDE_DIR.replace(path)
       Dir.mkdir File.join path, "ATestCase"
 
       s = 'exclude :test_test2, "because it is borked"'
@@ -57,6 +57,6 @@ class TestMiniTestExcludes < MetaMetaMetaTestCase
       assert_report expected, %w[--seed 42 --verbose]
     end
   ensure
-    MiniTest::Unit::TestCase::EXCLUDE_DIR.replace(old_exclude_base)
+    Minitest::Test::EXCLUDE_DIR.replace(old_exclude_base)
   end
 end

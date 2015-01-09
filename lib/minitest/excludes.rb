@@ -1,6 +1,6 @@
 require 'minitest/unit'
 
-module MiniTest::Unit::Excludes # :nodoc:
+module Minitest::Excludes # :nodoc:
   VERSION = "1.0.2" # :nodoc:
 end
 
