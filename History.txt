@@ -1,3 +1,9 @@
+=== 2.0.0 / 2015-02-02
+
+* 1 major enhancement:
+
+  * Updated for minitest 5.
+
 === 1.0.2 / 2013-04-22
 
 * 1 bug fix:
