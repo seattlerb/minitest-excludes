@@ -11,7 +11,7 @@ Hoe.add_include_dirs "../../minitest/dev/lib"
 Hoe.spec "minitest-excludes" do
   developer "Ryan Davis", "ryand-ruby@zenspider.com"
 
-  dependency "minitest", "~> 4.0"
+  dependency "minitest", "~> 5.0"
 end
 
 # vim: syntax=ruby
