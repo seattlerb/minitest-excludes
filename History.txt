@@ -1,3 +1,10 @@
+=== 2.0.1 / 2018-03-23
+
+* 2 bug fixes:
+
+  * Fixed OLD require paths
+  * Updated deps for MT5.
+
 === 2.0.0 / 2015-02-02
 
 * 1 major enhancement:
