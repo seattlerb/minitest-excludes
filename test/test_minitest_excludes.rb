@@ -41,8 +41,8 @@ class TestMinitestExcludes < MetaMetaMetaTestCase
 
       @tus = [tc1, tc2]
 
-      assert_equal %w(test_test3 test_test1), ATestCase.runnable_methods
-      assert_equal %w(test_test1 test_test3), ATestCase::Nested.runnable_methods
+      assert_equal %w(test_test1 test_test3), ATestCase.runnable_methods.sort
+      assert_equal %w(test_test1 test_test3), ATestCase::Nested.runnable_methods.sort
 
       expected = <<-EOM.gsub(/^ {8}/, '')
         ATestCase#test_test1 = 0.00 s = .
