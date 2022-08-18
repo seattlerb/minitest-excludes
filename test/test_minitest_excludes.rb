@@ -3,6 +3,7 @@ require 'minitest/excludes'
 
 class TestMinitestExcludes < MetaMetaMetaTestCase
   def test_cls_excludes
+    Minitest.seed = 42 if Minitest.respond_to?(:seed=)
     srand 42
     old_exclude_base = Minitest::Test::EXCLUDE_DIR
 
@@ -14,13 +15,8 @@ class TestMinitestExcludes < MetaMetaMetaTestCase
 
       s = 'exclude :test_test2, "because it is borked"'
 
-      File.open File.join(path, "ATestCase.rb"), "w" do |f|
-        f.puts s
-      end
-
-      File.open File.join(path, "ATestCase/Nested.rb"), "w" do |f|
-        f.puts s
-      end
+      File.write File.join(path, "ATestCase.rb"), s
+      File.write File.join(path, "ATestCase/Nested.rb"), s
 
       tc1 = tc2 = nil
 
@@ -45,10 +41,10 @@ class TestMinitestExcludes < MetaMetaMetaTestCase
       assert_equal %w(test_test1 test_test3), ATestCase::Nested.runnable_methods.sort
 
       expected = <<-EOM.gsub(/^ {8}/, '')
-        ATestCase#test_test1 = 0.00 s = .
         ATestCase#test_test3 = 0.00 s = .
-        ATestCase::Nested#test_test1 = 0.00 s = .
+        ATestCase#test_test1 = 0.00 s = .
         ATestCase::Nested#test_test3 = 0.00 s = .
+        ATestCase::Nested#test_test1 = 0.00 s = .
 
         Finished in 0.00
 

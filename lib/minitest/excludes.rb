@@ -5,13 +5,13 @@ module Minitest::Excludes # :nodoc:
 end
 
 ##
-# minitest/excludes.rb extends MiniTest::Unit::TestCase to provide a
+# minitest/excludes.rb extends Minitest::Test to provide a
 # clean API for excluding certain tests you don't want to run under
 # certain conditions.
 #
 # For example, in test/test_xyz.rb you have:
 #
-#   class TestXYZ < MiniTest::Unit::TestCase
+#   class TestXYZ < Minitest::Test
 #     def test_good
 #       # test that passes
 #     end

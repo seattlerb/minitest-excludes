@@ -5,7 +5,7 @@ rdoc :: http://docs.seattlerb.org/minitest-excludes
 
 == DESCRIPTION:
 
-minitest/excludes.rb extends MiniTest::Unit::TestCase to provide a
+minitest/excludes.rb extends Minitest::Test to provide a
 clean API for excluding certain tests you don't want to run under
 certain conditions.
 
@@ -16,7 +16,7 @@ certain conditions.
 
 == SYNOPSIS:
 
-    class TestXYZ < MiniTest::Unit::TestCase
+    class TestXYZ < Minitest::Test
       def test_good
         test that passes
       end
