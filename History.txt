@@ -1,3 +1,9 @@
+=== 2.0.2 / 2022-10-06
+
+* 1 bug fix:
+
+  * Updated minitest 4 references to minitest 5.
+
 === 2.0.1 / 2018-03-23
 
 * 2 bug fixes:
@@ -35,4 +41,3 @@
   * Don't keep using the env var, since bad tests may modify ENV w/o restoring it. (headius)
   * Map X::Y to X/Y.rb for excludes to deal with nested test classes.
   * Remove method instead of generating a skip to avoid setup/teardown overhead.
-
