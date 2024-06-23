@@ -37,7 +37,7 @@ end
 # set the EXCLUDE_DIR environment variable.
 
 class Minitest::Test
-  EXCLUDE_DIR = ENV['EXCLUDE_DIR'] || "test/excludes"
+  EXCLUDE_DIR = ENV['EXCLUDE_DIR'] || +"test/excludes"
 
   ##
   # Exclude a test from a testcase. This is intended to be used by
