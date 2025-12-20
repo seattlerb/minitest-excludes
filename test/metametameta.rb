@@ -28,7 +28,11 @@ class MetaMetaMetaTestCase < Minitest::Test
     @tus.each do |tu|
       Minitest::Runnable.runnables.delete tu
 
-      tu.run reporter, options
+      if tu.respond_to? :run_suite then
+        tu.run_suite reporter, options
+      else
+        tu.run reporter, options
+      end
     end
 
     reporter.report
