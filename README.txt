@@ -36,7 +36,7 @@ For jruby runs, you can add test/excludes/TestXYZ.rb with:
 
 == INSTALL:
 
-* sudo gem install minitest-excludes
+* gem install minitest-excludes
 
 == LICENSE:
 
