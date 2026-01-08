@@ -1,7 +1,7 @@
 require 'minitest/test'
 
 module Minitest::Excludes # :nodoc:
-  VERSION = "2.0.3" # :nodoc:
+  VERSION = "2.0.4" # :nodoc:
 end
 
 ##
